@@ -76,17 +76,19 @@ const Landing = () => {
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative w-full max-w-xl" style={{ perspective: "1200px" }}>
               <div
-                className="rounded-lg border border-border/50 overflow-hidden shadow-2xl"
+                className="rounded-xl border border-border/50 overflow-hidden shadow-2xl"
                 style={{ transform: "rotateY(-4deg) rotateX(2deg)" }}
               >
                 {/* Browser chrome */}
-                <div className="bg-secondary/80 flex items-center gap-1.5 px-3 py-2">
+                <div className="bg-secondary/80 flex items-center gap-1.5 px-3 py-2.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
                   <span className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
                   <span className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30" />
                   <span className="ml-3 text-[10px] text-muted-foreground/50 font-mono">mapmind.online</span>
                 </div>
-                <img src={screenshotHero} alt="MapMind app showing world map with notes" className="w-full block" />
+                <div className="w-full max-h-[420px] overflow-hidden">
+                  <img src={screenshotHero} alt="MapMind app showing world map with notes" className="w-full h-full object-cover object-top" />
+                </div>
               </div>
               {/* Glow */}
               <div className="absolute -inset-8 rounded-3xl bg-primary/5 blur-3xl -z-10" />
