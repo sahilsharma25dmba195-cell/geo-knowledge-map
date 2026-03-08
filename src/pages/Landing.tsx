@@ -1,7 +1,7 @@
 import { Globe, Link2, Tags, Network, Share2, Flame, Newspaper, TrendingUp, BookOpen, Lightbulb, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import WorldMapSVG from "@/components/landing/WorldMapSVG";
+import AnimatedMapBackground from "@/components/landing/AnimatedMapBackground";
 import SectionWrapper from "@/components/landing/SectionWrapper";
 import screenshotHero from "@/assets/screenshot-hero.png";
 import screenshotStep1 from "@/assets/screenshot-step1.png";
