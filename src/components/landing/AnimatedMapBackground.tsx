@@ -101,7 +101,7 @@ const AnimatedMapBackground = () => {
       <svg
         ref={svgRef}
         viewBox="0 0 1000 500"
-        className="w-full h-full opacity-[0.07]"
+        className="w-full h-full opacity-[0.2]"
         preserveAspectRatio="xMidYMid slice"
         fill="none"
       >
