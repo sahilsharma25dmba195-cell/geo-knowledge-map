@@ -34,8 +34,8 @@ const testimonials = [
 ];
 
 const steps = [
-  { img: screenshotStep2, title: "Sign up to add a note", caption: "Create your free account and start capturing your thoughts in seconds." },
-  { img: screenshotStep1, title: "Pick your location", caption: "Click any country or region on the map — or search for it." },
+  { img: screenshotStep1, title: "Sign up to add a note", caption: "Create your free account and start capturing your thoughts in seconds." },
+  { img: screenshotStep2, title: "Pick your location", caption: "Click any country or region on the map — or search for it." },
   { img: screenshotStep3, title: "See your knowledge grow", caption: "Watch your map fill up. Every country you study lights up. Every connection becomes visible." },
 ];
 
