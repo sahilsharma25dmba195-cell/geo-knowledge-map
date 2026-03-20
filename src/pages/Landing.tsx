@@ -105,7 +105,7 @@ const Landing = () => {
         >
           <div className="relative z-10 max-w-7xl w-full mx-auto grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-20 items-center">
             {/* Left */}
-            <div className="flex flex-col gap-4 sm:gap-6 pt-6 sm:pt-12 lg:pt-0">
+            <div className="flex flex-col gap-4 sm:gap-6 pt-6 sm:pt-12 lg:pt-0 w-full max-w-[90vw] sm:max-w-full">
               <Badge variant="secondary" className="w-fit text-xs px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary text-muted-foreground border-border">
                 Your second brain, mapped to the world
               </Badge>
@@ -171,7 +171,7 @@ const Landing = () => {
             {/* Arrows */}
             <button 
               onClick={() => scrollByAmount("left")}
-              className="absolute left-2 sm:left-4 md:-left-4 lg:-left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              className="absolute left-2 sm:left-4 md:left-6 lg:left-8 xl:left-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
@@ -179,7 +179,7 @@ const Landing = () => {
 
             <button 
               onClick={() => scrollByAmount("right")}
-              className="absolute right-2 sm:right-4 md:-right-4 lg:-right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              className="absolute right-2 sm:right-4 md:right-6 lg:right-8 xl:right-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
