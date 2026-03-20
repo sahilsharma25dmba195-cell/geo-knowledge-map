@@ -291,7 +291,7 @@ const Landing = () => {
         <footer className="border-t border-border/50 py-6 sm:py-8 px-4 sm:px-6 md:px-12 lg:px-24">
           <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-muted-foreground">
             <a href="https://mapmind.online" className="flex items-center gap-2 group shrink-0">
-              <img src={logo} alt="MapMind" className="w-5 sm:w-6 h-5 sm:h-6 dark:invert" />
+              <img src={logo} alt="MapMind" className="w-5 sm:w-6 h-5 sm:h-6" />
               <span className="font-semibold text-foreground font-display text-sm sm:text-base">MapMind</span>
             </a>
             <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-6">
