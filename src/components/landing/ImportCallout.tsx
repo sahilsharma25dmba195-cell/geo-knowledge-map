@@ -118,8 +118,7 @@ const ImportCallout = () => {
               <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
             </button>
 
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-background to-transparent z-10" />
+
             <div ref={gptScrollRef} className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
               {gptSteps.map((step, i) => (
                 <div key={i} className="min-w-[280px] sm:min-w-[320px] max-w-[420px] snap-center shrink-0 flex flex-col items-center text-center">
@@ -172,8 +171,7 @@ const ImportCallout = () => {
               <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
             </button>
 
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-background to-transparent z-10" />
+
             <div ref={extScrollRef} className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
               {extensionSteps.map((step, i) => (
                 <div key={i} className="min-w-[280px] sm:min-w-[320px] max-w-[420px] snap-center shrink-0 flex flex-col items-center text-center">

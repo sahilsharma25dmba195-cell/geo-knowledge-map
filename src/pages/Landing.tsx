@@ -185,9 +185,7 @@ const Landing = () => {
               <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
             </button>
 
-            {/* Fade edges */}
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 lg:w-48 xl:w-64 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 lg:w-48 xl:w-64 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
+
             <div 
               ref={scrollContainerRef}
               className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-thin px-4 sm:px-12 lg:px-24 xl:px-32"
