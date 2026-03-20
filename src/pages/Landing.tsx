@@ -163,52 +163,55 @@ const Landing = () => {
         </SectionWrapper>
 
         {/* How it works */}
-        <SectionWrapper id="workflow">
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-14">From reading to remembering — in seconds</h2>
-          <div className="relative max-w-6xl mx-auto px-1 sm:px-4">
+        <section id="workflow" className="relative w-full border-y border-primary/10 bg-gradient-to-b from-primary/5 via-background to-background overflow-hidden py-16 sm:py-24 lg:py-32 my-12 sm:my-24 shadow-[inset_0_0_100px_rgba(var(--primary),0.05)]">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center mb-4 sm:mb-6">From reading to remembering — in seconds</h2>
+          <p className="text-center text-muted-foreground text-sm sm:text-lg max-w-2xl mx-auto mb-10 sm:mb-16 px-4">See how MapMind transforms scattered reading into a visual geographical knowledge web. Stop here—this is what your second brain looks like.</p>
+          <div className="relative w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-8 xl:px-12">
             {/* Arrows */}
             <button 
               onClick={() => scrollByAmount("left")}
-              className="absolute left-1 sm:-left-3 md:-left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-full bg-background/80 hover:bg-muted border border-border shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.05)] backdrop-blur-md text-foreground transition-all duration-200"
+              className="absolute left-2 sm:left-4 md:-left-4 lg:-left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 rounded-full bg-background/90 hover:bg-primary/10 hover:text-primary hover:border-primary/50 border border-border/80 shadow-2xl backdrop-blur-md text-foreground transition-all duration-300"
               aria-label="Scroll left"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
             </button>
 
             <button 
               onClick={() => scrollByAmount("right")}
-              className="absolute right-1 sm:-right-3 md:-right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-full bg-background/80 hover:bg-muted border border-border shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.05)] backdrop-blur-md text-foreground transition-all duration-200"
+              className="absolute right-2 sm:right-4 md:-right-4 lg:-right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 rounded-full bg-background/90 hover:bg-primary/10 hover:text-primary hover:border-primary/50 border border-border/80 shadow-2xl backdrop-blur-md text-foreground transition-all duration-300"
               aria-label="Scroll right"
             >
-              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
             </button>
 
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-10 md:w-16 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-10 md:w-16 bg-gradient-to-l from-background to-transparent z-10" />
+            {/* Fade edges */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 lg:w-48 xl:w-64 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 lg:w-48 xl:w-64 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
             <div 
               ref={scrollContainerRef}
-              className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin"
+              className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-thin px-4 sm:px-12 lg:px-24 xl:px-32"
             >
               {steps.map((s, i) => (
-                <div key={i} className="w-full min-w-full px-2 sm:px-4 snap-center flex flex-col items-center text-center shrink-0 sm:min-w-[50vw] sm:px-0 md:min-w-[400px] lg:min-w-[420px] max-w-[500px]">
-                  <span className="text-xs font-semibold text-primary mb-2 sm:mb-3 tracking-widest uppercase">Step {i + 1}</span>
-                  <div className="rounded-lg border border-border/50 overflow-hidden shadow-xl mb-3 sm:mb-5 w-full bg-secondary/20">
-                    <div className="bg-secondary/80 flex items-center gap-1.5 px-3 py-1.5">
-                      <span className="w-2 h-2 rounded-full bg-muted-foreground/30" />
-                      <span className="w-2 h-2 rounded-full bg-muted-foreground/30" />
-                      <span className="w-2 h-2 rounded-full bg-muted-foreground/30" />
+                <div key={i} className="w-full min-w-[85vw] sm:min-w-[60vw] md:min-w-[450px] lg:min-w-[480px] xl:min-w-[550px] max-w-[650px] snap-center flex flex-col items-center text-center shrink-0 transition-transform duration-500 hover:scale-[1.02]">
+                  <span className="text-xs lg:text-sm font-bold text-primary mb-3 sm:mb-4 tracking-widest uppercase shadow-sm">Step {i + 1}</span>
+                  <div className="rounded-xl lg:rounded-2xl border border-primary/20 overflow-hidden shadow-2xl shadow-primary/5 mb-4 sm:mb-6 w-full bg-secondary/20 backdrop-blur-sm group">
+                    <div className="bg-secondary/40 border-b border-primary/10 flex items-center gap-1.5 px-4 py-2 lg:py-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-primary/40" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-primary/40" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-primary/40" />
                     </div>
-                    <div className="aspect-[4/3] sm:aspect-video">
-                      <ImageLightbox src={s.img} alt={s.title} className="w-full h-full object-contain" />
+                    <div className="aspect-[4/3] sm:aspect-video relative overflow-hidden bg-background/50 flex">
+                      <ImageLightbox src={s.img} alt={s.title} className="w-full h-full object-contain group-hover:scale-[1.03] transition-transform duration-700 ease-out" />
                     </div>
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">{s.title}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground max-w-xs">{s.caption}</p>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 lg:mb-3">{s.title}</h3>
+                  <p className="text-sm lg:text-base text-muted-foreground/90 max-w-sm lg:max-w-md">{s.caption}</p>
                 </div>
               ))}
             </div>
           </div>
-        </SectionWrapper>
+        </section>
 
         {/* Import Callout */}
         <ImportCallout />
