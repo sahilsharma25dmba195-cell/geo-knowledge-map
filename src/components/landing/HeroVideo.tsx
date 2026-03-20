@@ -1,6 +1,6 @@
 const HeroVideo = () => {
   return (
-    <div className="relative w-full max-w-xl" style={{ perspective: "1200px" }}>
+    <div className="relative w-full max-w-[700px]" style={{ perspective: "1200px" }}>
       <div
         className="rounded-lg border border-border/50 shadow-2xl overflow-hidden"
         style={{

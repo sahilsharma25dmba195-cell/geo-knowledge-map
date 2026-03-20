@@ -54,6 +54,7 @@ const CinematicIntro = () => {
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInCarousel, setIsInCarousel] = useState(true);
+  const [isContainerInView, setIsContainerInView] = useState(true);
   const lastWheelTimeRef = useRef<number>(0);
   const activeIndexRef = useRef<number>(0);
   const isMobile = useIsMobile();
@@ -62,6 +63,18 @@ const CinematicIntro = () => {
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
+
+  // Observer for rendering arrows only when the cinematic section is actually visible
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsContainerInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const scrollToHero = () => {
     document.getElementById("hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -338,8 +351,8 @@ const CinematicIntro = () => {
             </p>
           </div>
           <div className="mt-8 sm:mt-10">
-            <p className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-white mb-6 sm:mb-8">
-              MapMind lets you build it.
+            <p className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight mb-6 sm:mb-8">
+              <span className="text-white">MapMind</span> <span className="text-primary">lets you build it.</span>
             </p>
             <button
               onClick={scrollToHero}
@@ -352,7 +365,7 @@ const CinematicIntro = () => {
       </div>
 
       {/* Navigation Arrows - Hidden on mobile */}
-      {isInCarousel && !isMobile && (
+      {isInCarousel && isContainerInView && !isMobile && (
         <>
           <button
             onClick={goPrev}
@@ -373,7 +386,7 @@ const CinematicIntro = () => {
       )}
 
       {/* Mobile Pagination Dots */}
-      {isInCarousel && isMobile && (
+      {isInCarousel && isContainerInView && isMobile && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2">
           {[0, 1, 2, 3, 4].map((index) => (
             <button

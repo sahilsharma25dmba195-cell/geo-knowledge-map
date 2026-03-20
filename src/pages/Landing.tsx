@@ -165,7 +165,7 @@ const Landing = () => {
         {/* How it works */}
         <section id="workflow" className="relative w-full border-y border-primary/10 bg-gradient-to-b from-primary/5 via-background to-background overflow-hidden py-16 sm:py-24 lg:py-32 my-12 sm:my-24 shadow-[inset_0_0_100px_rgba(var(--primary),0.05)]">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center mb-4 sm:mb-6">From reading to remembering — in seconds</h2>
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center mb-4 sm:mb-6 text-primary">From reading to remembering — in seconds</h2>
           <p className="text-center text-muted-foreground text-sm sm:text-lg max-w-2xl mx-auto mb-10 sm:mb-16 px-4">See how MapMind transforms scattered reading into a visual geographical knowledge web. Stop here—this is what your second brain looks like.</p>
           <div className="relative w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-8 xl:px-12">
             {/* Arrows */}
