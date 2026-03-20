@@ -3,7 +3,8 @@ import logo from "@/assets/logo-modified.png";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -19,6 +20,7 @@ const Navbar = ({ isVisible = true }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -62,17 +64,28 @@ const Navbar = ({ isVisible = true }: NavbarProps) => {
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleAnchorClick(e, link.href)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
             </a>
           ))}
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="flex items-center justify-center p-2 rounded-full hover:bg-secondary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition-colors"
+            aria-label="Toggle theme"
+          >
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-muted-foreground hover:text-primary" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-muted-foreground hover:text-primary" />
+            <span className="sr-only">Toggle theme</span>
+          </button>
         </div>
 
         {/* Desktop CTA Button */}
@@ -110,6 +123,19 @@ const Navbar = ({ isVisible = true }: NavbarProps) => {
             <Button size="sm" className="w-full text-sm" asChild>
               <a href="https://mapmind.online">Get Started</a>
             </Button>
+            
+            <div className="pt-2 flex items-center justify-between border-t border-border/50">
+              <span className="text-sm font-medium text-muted-foreground">Theme</span>
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="flex items-center justify-center p-2 rounded-full border border-border/50 hover:bg-secondary/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                aria-label="Toggle theme"
+              >
+                <Sun className="h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-muted-foreground" />
+                <Moon className="absolute h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-muted-foreground" />
+                <span className="sr-only">Toggle theme</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
