@@ -239,6 +239,10 @@ All colors MUST be HSL.
     will-change: transform;
   }
 
+  .cinematic-image {
+    transform: scale(1.2);
+  }
+
   /* Improve touch interactions */
   button {
     -webkit-user-select: none;
