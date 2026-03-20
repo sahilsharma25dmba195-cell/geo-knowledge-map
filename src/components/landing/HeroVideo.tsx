@@ -22,7 +22,7 @@ const HeroVideo = () => {
           loop
           muted
           playsInline
-          className="w-full block rounded-b-lg"
+          className="w-full block rounded-b-lg bg-secondary"
           poster=""
         >
           <source src="/videos/Scene.mp4" type="video/mp4" />

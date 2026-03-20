@@ -181,8 +181,8 @@ All colors MUST be HSL.
   .cinematic-content {
     position: relative;
     z-index: 2;
-    opacity: 0;
-    transform: translateY(24px);
+    opacity: 1;
+    transform: translateY(0);
     text-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
     will-change: opacity, transform;
   }
@@ -211,5 +211,63 @@ All colors MUST be HSL.
     opacity: 1;
     transform: none;
     animation: none;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  .cinematic-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: none;
+  }
+
+  .cinematic-section {
+    scroll-snap-align: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .cinematic-carousel-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    will-change: transform;
+  }
+
+  /* Improve touch interactions */
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Better scrolling experience */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Optimize font sizes for mobile readability */
+  @supports (font-size: clamp(1rem, 2vw, 2rem)) {
+    h1, h2, h3, h4, h5, h6 {
+      font-size: clamp(1.25rem, 5vw, 3rem);
+    }
+  }
+
+  /* Improve image loading on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optimize video playback */
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }

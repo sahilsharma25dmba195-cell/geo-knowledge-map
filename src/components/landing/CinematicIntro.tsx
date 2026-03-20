@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import bg1 from "@/assets/cinematic-bg1.png";
 import bg2 from "@/assets/cinematic-bg2-country-detail.png";
 import bg3 from "@/assets/cinematic-bg3.png";
@@ -37,7 +38,7 @@ const CinematicSlide = ({
       </div>
       <div
         className={cn(
-          "content cinematic-content mx-auto w-full px-6",
+          "content cinematic-content mx-auto w-full px-4 sm:px-6 md:px-6",
           isActive && "in-view",
           className
         )}
@@ -55,6 +56,7 @@ const CinematicIntro = () => {
   const [isInCarousel, setIsInCarousel] = useState(true);
   const lastWheelTimeRef = useRef<number>(0);
   const activeIndexRef = useRef<number>(0);
+  const isMobile = useIsMobile();
 
   // Update ref whenever activeIndex changes
   useEffect(() => {
@@ -91,7 +93,8 @@ const CinematicIntro = () => {
 
     const handleScroll = () => {
       const scrollTop = container.scrollTop;
-      const inCarousel = scrollTop < window.innerHeight * 0.9;
+      // Only hide dots/arrows if user scrolls significantly below carousel
+      const inCarousel = scrollTop < window.innerHeight;
       setIsInCarousel(inCarousel);
     };
 
@@ -102,10 +105,10 @@ const CinematicIntro = () => {
     };
   }, []);
 
-  // Handle wheel events for carousel navigation
+  // Handle wheel events for carousel navigation (desktop only)
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || isMobile) return;
 
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
@@ -150,6 +153,65 @@ const CinematicIntro = () => {
     return () => {
       container.removeEventListener("wheel", handleWheel);
     };
+  }, [isMobile]);
+
+  // Mobile swipe handling
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartTime = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartTime = Date.now();
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const touchDuration = Date.now() - touchStartTime;
+      
+      // Only process as swipe if it's a quick gesture (less than 500ms)
+      if (touchDuration > 500) return;
+      
+      const swipeThreshold = 30;
+      const diff = touchStartX - touchEndX;
+
+      const scrollTop = container.scrollTop;
+      const inCarouselArea = scrollTop < window.innerHeight;
+
+      if (!inCarouselArea) return;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        // Prevent default scroll behavior during swipe
+        e.preventDefault();
+        
+        if (diff > 0) {
+          // Swiped left - go next
+          if (activeIndexRef.current < 4) {
+            setActiveIndex(activeIndexRef.current + 1);
+          } else {
+            setIsInCarousel(false);
+            scrollToHero();
+          }
+        } else {
+          // Swiped right - go previous
+          if (activeIndexRef.current > 0) {
+            setActiveIndex(activeIndexRef.current - 1);
+          }
+        }
+      }
+    };
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchend", handleTouchEnd, { passive: false });
+
+    return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchend", handleTouchEnd);
+    };
   }, []);
 
   // Update carousel wrapper position
@@ -161,28 +223,34 @@ const CinematicIntro = () => {
     }
   }, [activeIndex]);
 
+  // Add pagination dots for mobile
+  const dotClick = (index: number) => {
+    goToSection(index);
+  };
+
   return (
     <div
       ref={containerRef}
       className="cinematic-container"
       aria-label="MapMind introduction"
+      style={{ touchAction: "pan-y" }}
     >
       {/* Carousel Wrapper for Sections 1-5 */}
       <div ref={carouselWrapperRef} className="cinematic-carousel-wrapper">
         {/* Section 1 */}
-        <CinematicSlide bgImage={bg1} isActive={activeIndex === 0} className="max-w-5xl">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
+        <CinematicSlide bgImage={bg1} isActive={activeIndex === 0} className="max-w-4xl sm:max-w-5xl">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
             Do you know someone who always knows what's going on{" "}
             <span className="text-gradient">in the world?</span>
           </h2>
         </CinematicSlide>
 
         {/* Section 2 */}
-        <CinematicSlide bgImage={bg2} isActive={activeIndex === 1} className="max-w-4xl">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-8">
+        <CinematicSlide bgImage={bg2} isActive={activeIndex === 1} className="max-w-3xl sm:max-w-4xl">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-6 sm:mb-8">
             What's going on in the United States?
           </h2>
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
+          <p className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
             They know.
           </p>
         </CinematicSlide>
@@ -192,19 +260,19 @@ const CinematicIntro = () => {
           bgImage={bg1}
           imagePosition="72% center"
           isActive={activeIndex === 2}
-          className="max-w-4xl"
+          className="max-w-3xl sm:max-w-4xl"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-8">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-6 sm:mb-8">
             What's happening across Europe?
           </h2>
-          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
+          <p className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
             They know.
           </p>
         </CinematicSlide>
 
         {/* Section 4 */}
-        <CinematicSlide bgImage={bg3} isActive={activeIndex === 3} className="max-w-4xl">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-foreground">
+        <CinematicSlide bgImage={bg3} isActive={activeIndex === 3} className="max-w-3xl sm:max-w-4xl">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-foreground">
             But how do they know?
           </h2>
         </CinematicSlide>
@@ -213,30 +281,30 @@ const CinematicIntro = () => {
         <CinematicSlide
           bgImage={bg1}
           isActive={activeIndex === 4}
-          className="max-w-[880px]"
+          className="max-w-2xl sm:max-w-[880px]"
           sectionClassName="cinematic-section--reading"
         >
-          <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <p className="text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
+          <div className="space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
               The answer is simple: structure what you learn geographically.
             </p>
-            <p className="text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
               Every piece of news has a country. Every market move has an origin. Every idea has a place on the map. When you anchor information to a location, it stops floating — it sticks.
             </p>
-            <p className="text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
               Charlie Munger called it building a "lattice work of mental models" — a framework where every new thing you learn connects to something you already know, and reinforces it.
             </p>
-            <p className="text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-foreground/84 leading-relaxed">
               That's the habit. Geography is the lattice.
             </p>
           </div>
-          <div className="mt-10">
-            <p className="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-white mb-8">
+          <div className="mt-8 sm:mt-10">
+            <p className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-white mb-6 sm:mb-8">
               MapMind lets you build it.
             </p>
             <button
               onClick={scrollToHero}
-              className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold uppercase tracking-[0.12em] bg-primary text-primary-foreground rounded-lg border border-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 transform hover:scale-105"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold uppercase tracking-[0.12em] bg-primary text-primary-foreground rounded-lg border border-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 transform hover:scale-105 active:scale-95"
             >
               See how →
             </button>
@@ -244,25 +312,52 @@ const CinematicIntro = () => {
         </CinematicSlide>
       </div>
 
-      {/* Navigation Arrows */}
-      {isInCarousel && (
+      {/* Navigation Arrows - Hidden on mobile */}
+      {isInCarousel && !isMobile && (
         <>
           <button
             onClick={goPrev}
             disabled={activeIndex === 0}
-            className="fixed left-6 top-1/2 -translate-y-1/2 z-50 p-2 text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-200"
+            className="hidden sm:flex fixed left-6 top-1/2 -translate-y-1/2 z-50 p-2 text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-200"
             aria-label="Previous section"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={goNext}
-            className="fixed right-6 top-1/2 -translate-y-1/2 z-50 p-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="hidden sm:flex fixed right-6 top-1/2 -translate-y-1/2 z-50 p-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
             aria-label="Next section"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
         </>
+      )}
+
+      {/* Mobile Pagination Dots */}
+      {isInCarousel && isMobile && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2">
+          {[0, 1, 2, 3, 4].map((index) => (
+            <button
+              key={index}
+              onClick={() => dotClick(index)}
+              className={cn(
+                "w-2 h-2 rounded-full transition-all duration-300",
+                activeIndex === index
+                  ? "bg-primary w-6"
+                  : "bg-muted-foreground/50 hover:bg-muted-foreground"
+              )}
+              aria-label={`Go to section ${index + 1}`}
+              aria-current={activeIndex === index}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Mobile hint text */}
+      {isInCarousel && isMobile && activeIndex !== 4 && (
+        <div className="fixed bottom-16 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/70 pointer-events-none animate-pulse">
+          Swipe to continue
+        </div>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ const SectionWrapper = ({ children, className, id }: SectionWrapperProps) => {
       id={id}
       ref={ref}
       className={cn(
-        "py-24 px-6 md:px-12 lg:px-24 transition-all duration-700 ease-out",
+        "py-12 sm:py-16 md:py-20 lg:py-24 px-4 xs:px-5 sm:px-6 md:px-12 lg:px-24 transition-all duration-700 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         className
       )}
