@@ -126,8 +126,8 @@ const Landing = () => {
                 </Button>
               </div>
             </div>
-            {/* Right — video - Hidden on small screens */}
-            <div className="hidden sm:flex relative justify-center lg:justify-end">
+            {/* Right — video */}
+            <div className="flex relative justify-center lg:justify-end mt-8 lg:mt-0 w-full">
               <HeroVideo />
             </div>
           </div>
@@ -292,7 +292,7 @@ const Landing = () => {
           <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-muted-foreground">
             <a href="https://mapmind.online" className="flex items-center gap-2 group shrink-0">
               <img src={logo} alt="MapMind" className="w-5 sm:w-6 h-5 sm:h-6" />
-              <span className="font-semibold text-foreground font-display text-sm sm:text-base">MapMind</span>
+              <span className="text-base sm:text-lg font-bold tracking-tight text-foreground">MapMind</span>
             </a>
             <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-6">
               <a href="https://mapmind.online/privacy" className="hover:text-foreground transition-colors">
