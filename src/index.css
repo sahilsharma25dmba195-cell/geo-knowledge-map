@@ -102,8 +102,7 @@ All colors MUST be HSL.
     height: 100vh;
     width: 100vw;
     overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+    overflow-x: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
     position: relative;
@@ -116,19 +115,27 @@ All colors MUST be HSL.
     display: none;
   }
 
+  .cinematic-carousel-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    will-change: transform;
+  }
+
   .cinematic-section {
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     overflow: hidden;
     isolation: isolate;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    will-change: transform;
+    flex-shrink: 0;
   }
 
   .cinematic-background {
