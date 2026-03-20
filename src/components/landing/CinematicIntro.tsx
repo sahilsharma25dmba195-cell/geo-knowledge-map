@@ -344,7 +344,7 @@ const CinematicIntro = () => {
               Every piece of news has a country. Every market move has an origin. Every idea has a place on the map. When you anchor information to a location, it stops floating — it sticks.
             </p>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
-              Charlie Munger called it building a "lattice work of mental models" — a framework where every new thing you learn connects to something you already know, and reinforces it.
+              <span className="text-primary font-medium">Charlie Munger called it building a "lattice work of mental models"</span> — a framework where every new thing you learn connects to something you already know, and reinforces it.
             </p>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
               That's the habit. Geography is the lattice.
