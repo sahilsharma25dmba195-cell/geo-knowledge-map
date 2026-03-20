@@ -340,7 +340,7 @@ const CinematicIntro = () => {
             <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
               The answer is simple: structure what you learn geographically.
             </p>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-red-500 font-medium leading-relaxed">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-primary font-medium leading-relaxed">
               You read. You forget. You scroll. Repeat.
             </p>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white/90 leading-relaxed">
