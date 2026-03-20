@@ -103,7 +103,7 @@ const Landing = () => {
           ref={heroRef}
           className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 z-10"
         >
-          <div className="relative z-10 max-w-7xl w-full mx-auto grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-20 items-center">
+          <div className="relative z-10 w-full max-w-[1400px] mx-auto grid lg:grid-cols-[45%_55%] gap-6 sm:gap-8 md:gap-12 lg:gap-12 items-center lg:-translate-x-[10%] xl:-translate-x-[12%]">
             {/* Left */}
             <div className="flex flex-col gap-4 sm:gap-6 pt-6 sm:pt-12 lg:pt-0">
               <Badge variant="secondary" className="w-fit text-xs px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary text-muted-foreground border-border">
