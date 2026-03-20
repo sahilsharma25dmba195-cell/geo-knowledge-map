@@ -171,18 +171,18 @@ const Landing = () => {
             {/* Arrows */}
             <button 
               onClick={() => scrollByAmount("left")}
-              className="absolute left-2 sm:left-4 md:-left-4 lg:-left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 rounded-full bg-background/90 hover:bg-primary/10 hover:text-primary hover:border-primary/50 border border-border/80 shadow-2xl backdrop-blur-md text-foreground transition-all duration-300"
+              className="absolute left-2 sm:left-4 md:-left-4 lg:-left-6 xl:-left-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
               aria-label="Scroll left"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
+              <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
             </button>
 
             <button 
               onClick={() => scrollByAmount("right")}
-              className="absolute right-2 sm:right-4 md:-right-4 lg:-right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 rounded-full bg-background/90 hover:bg-primary/10 hover:text-primary hover:border-primary/50 border border-border/80 shadow-2xl backdrop-blur-md text-foreground transition-all duration-300"
+              className="absolute right-2 sm:right-4 md:-right-4 lg:-right-6 xl:-right-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
               aria-label="Scroll right"
             >
-              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
+              <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
             </button>
 
             {/* Fade edges */}

@@ -1,4 +1,5 @@
-import { ArrowRightLeft, FileUp, Database, CheckCircle2, Chrome, Sparkles, Bot } from "lucide-react";
+import { ArrowRightLeft, FileUp, Database, CheckCircle2, Chrome, Sparkles, Bot, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
 import ImageLightbox from "./ImageLightbox";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -33,6 +34,19 @@ const gptSteps = [
 ];
 
 const ImportCallout = () => {
+  const gptScrollRef = useRef<HTMLDivElement>(null);
+  const extScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollByAmount = (ref: React.RefObject<HTMLDivElement>, direction: "left" | "right") => {
+    if (ref.current) {
+      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 400;
+      ref.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <>
       {/* Main Import CTA */}
@@ -86,10 +100,27 @@ const ImportCallout = () => {
             </p>
           </div>
 
-          <div className="relative">
+          <div className="relative group">
+            {/* Arrows */}
+            <button 
+              onClick={() => scrollByAmount(gptScrollRef, "left")}
+              className="absolute left-0 sm:-left-6 lg:-left-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
+            </button>
+
+            <button 
+              onClick={() => scrollByAmount(gptScrollRef, "right")}
+              className="absolute right-0 sm:-right-6 lg:-right-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
+            </button>
+
             <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-background to-transparent z-10" />
             <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-background to-transparent z-10" />
-            <div className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
+            <div ref={gptScrollRef} className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
               {gptSteps.map((step, i) => (
                 <div key={i} className="min-w-[280px] sm:min-w-[320px] max-w-[420px] snap-center shrink-0 flex flex-col items-center text-center">
                   <span className="text-xs font-semibold text-primary mb-2 sm:mb-3 tracking-widest uppercase">Step {i + 1}</span>
@@ -123,10 +154,27 @@ const ImportCallout = () => {
             </p>
           </div>
 
-          <div className="relative">
+          <div className="relative group">
+            {/* Arrows */}
+            <button 
+              onClick={() => scrollByAmount(extScrollRef, "left")}
+              className="absolute left-0 sm:-left-6 lg:-left-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
+            </button>
+
+            <button 
+              onClick={() => scrollByAmount(extScrollRef, "right")}
+              className="absolute right-0 sm:-right-6 lg:-right-12 top-1/2 -translate-y-1/2 z-20 p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 opacity-70 hover:opacity-100 drop-shadow-sm" />
+            </button>
+
             <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-background to-transparent z-10" />
             <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-background to-transparent z-10" />
-            <div className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
+            <div ref={extScrollRef} className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin px-2 sm:px-1">
               {extensionSteps.map((step, i) => (
                 <div key={i} className="min-w-[280px] sm:min-w-[320px] max-w-[420px] snap-center shrink-0 flex flex-col items-center text-center">
                   <span className="text-xs font-semibold text-primary mb-2 sm:mb-3 tracking-widest uppercase">Step {i + 1}</span>
