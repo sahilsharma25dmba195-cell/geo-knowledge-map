@@ -100,33 +100,30 @@ const CinematicIntro = () => {
       const now = Date.now();
       const timeSinceLastScroll = now - lastScrollTime;
 
-      // Only hide dots/arrows if user scrolls significantly below carousel
+      // Update carousel visibility
       const inCarousel = currentScrollTop < window.innerHeight;
       setIsInCarousel(inCarousel);
 
-      // Handle vertical scroll -> horizontal carousel navigation (only while in carousel)
-      if (inCarousel && timeSinceLastScroll > 600) {
-        const scrollThreshold = 30;
-
-        if (scrollDelta > scrollThreshold) {
-          // Scrolling down - go to next section
-          if (activeIndexRef.current < 4) {
-            container.scrollTop = 0; // Reset scroll position
+      // If user is in sections 1-5 (activeIndex < 4), prevent scrolling and navigate carousel instead
+      if (activeIndexRef.current < 4 && currentScrollTop > 10) {
+        // Force scroll back to top to prevent page scroll
+        container.scrollTop = 0;
+        
+        // Handle the scroll direction for carousel navigation
+        if (timeSinceLastScroll > 600) {
+          if (scrollDelta > 0) {
+            // Scrolling down - go to next section
             setActiveIndex(activeIndexRef.current + 1);
-          } else {
-            // At last section, allow scroll to proceed to main content
-            return;
-          }
-          lastScrollTime = now;
-        } else if (scrollDelta < -scrollThreshold) {
-          // Scrolling up - go to previous section
-          if (activeIndexRef.current > 0) {
-            container.scrollTop = 0; // Reset scroll position
+            lastScrollTime = now;
+          } else if (scrollDelta < 0) {
+            // Scrolling up - go to previous section
             setActiveIndex(activeIndexRef.current - 1);
+            lastScrollTime = now;
           }
-          lastScrollTime = now;
         }
       }
+      // If at section 5, allow normal scrolling to proceed to main content
+      // (don't force scrollTop back to 0)
 
       lastScrollTop = currentScrollTop;
     };
@@ -146,15 +143,21 @@ const CinematicIntro = () => {
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
       const scrollTop = container.scrollTop;
-      const inCarouselArea = scrollTop < window.innerHeight * 0.9;
+      const inCarouselArea = scrollTop < window.innerHeight * 0.1; // Very lenient check
+
+      // Only intercept wheel events in carousel area (first 5 sections)
+      if (activeIndexRef.current >= 4) {
+        // At section 5, allow normal wheel scrolling to proceed to main content
+        return;
+      }
 
       if (!inCarouselArea) {
         // Not in carousel area, allow normal scrolling
         return;
       }
 
-      // Debounce: only allow one scroll every 1500ms to catch entire trackpad gesture
-      if (now - lastWheelTimeRef.current < 1500) {
+      // Debounce: only allow one scroll every 1000ms
+      if (now - lastWheelTimeRef.current < 1000) {
         e.preventDefault();
         return;
       }
@@ -165,15 +168,13 @@ const CinematicIntro = () => {
       const delta = e.deltaY > 0 ? 1 : -1;
       const newIndex = activeIndexRef.current + delta;
 
-      // If at section 5 and scrolling down, transition to main page
-      if (newIndex > 4) {
-        setIsInCarousel(false);
-        scrollToHero();
+      // Prevent scrolling before section 1
+      if (newIndex < 0) {
         return;
       }
 
-      // Prevent scrolling before section 1
-      if (newIndex < 0) {
+      // Don't go past section 4 (allow section 5, then scroll to main)
+      if (newIndex > 4) {
         return;
       }
 
