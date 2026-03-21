@@ -233,7 +233,7 @@ const Landing = () => {
 
         {/* Features */}
         <SectionWrapper id="features">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-14">Everything you need. Nothing you don't.</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-14 text-primary">Everything you need. Nothing you don't.</h2>
           <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {features.map((f) => (
               <div key={f.name} className="rounded-lg sm:rounded-xl border border-border/50 bg-secondary/20 p-4 sm:p-6">
