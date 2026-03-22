@@ -124,7 +124,7 @@ const Navbar = ({ isVisible = true }: NavbarProps) => {
             <Button size="sm" className="w-full text-sm" asChild>
               <a href="https://mapmind.online">Get Started</a>
             </Button>
-            
+
             <div className="pt-2 flex items-center justify-between border-t border-border/50">
               <span className="text-sm font-medium text-muted-foreground">Theme</span>
               <button
